@@ -1,0 +1,14 @@
+{
+	"name": "ade-adf-training",
+	"properties": {
+		"globalConfigurations": {
+			"PipelineBillingEnabled": "false"
+		}
+	},
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "05a2e76c-874b-4d35-ac5e-be68b90f43a2",
+		"tenantId": "c0c386be-757b-470c-991d-859e25a6acea"
+	}
+}

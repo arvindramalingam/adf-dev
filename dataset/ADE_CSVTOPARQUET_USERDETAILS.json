@@ -1,0 +1,33 @@
+{
+	"name": "ADE_CSVTOPARQUET_USERDETAILS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "ADE-CSVTOPARQUET-S1/SOURCE"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "users_information.csv",
+				"folderPath": "user_details",
+				"container": "adftutorial"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "\"Name\"|\"Age\"|\"Sex\"|\"Qualification\"",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

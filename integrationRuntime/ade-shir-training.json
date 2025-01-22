@@ -1,0 +1,12 @@
+{
+	"name": "ade-shir-training",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"linkedInfo": {
+				"resourceId": "/subscriptions/9f7bc326-c778-429c-b2b9-6f7f1ffd15b9/resourcegroups/traningazureforbharathi/providers/Microsoft.DataFactory/factories/fdt-adf-dev/integrationruntimes/selfhostedruntime",
+				"authorizationType": "Rbac"
+			}
+		}
+	}
+}
