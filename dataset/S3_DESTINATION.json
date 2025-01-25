@@ -1,0 +1,40 @@
+{
+	"name": "S3_DESTINATION",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Scenario3/DESTINATION"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "test",
+				"fileSystem": "ade-training-test"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "Name",
+				"type": "UTF8"
+			},
+			{
+				"name": "Age",
+				"type": "UTF8"
+			},
+			{
+				"name": "Sex",
+				"type": "UTF8"
+			},
+			{
+				"name": "Qualification",
+				"type": "UTF8"
+			}
+		]
+	}
+}
