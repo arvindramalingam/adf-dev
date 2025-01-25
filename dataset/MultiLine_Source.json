@@ -19,8 +19,7 @@
 			"columnDelimiter": ";",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
-			"quoteChar": "\"",
-			"enableMultiLineRow": true
+			"quoteChar": "\""
 		},
 		"schema": []
 	}
