@@ -1,0 +1,32 @@
+{
+	"name": "S3_SETTINGS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Scenario3/SETTINGS"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "adf_csv_settings.csv",
+				"folderPath": "adf_settings",
+				"fileSystem": "ade-training-test"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "\"Name\"|\"FileName\"|\"Active\"",
+				"type": "String"
+			}
+		]
+	}
+}
