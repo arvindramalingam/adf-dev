@@ -1,0 +1,32 @@
+{
+	"name": "MultiLine_Source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "MultiLine_Scenario_DS/SOURCE"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "name_address.txt",
+				"container": "adftutorial"
+			},
+			"columnDelimiter": ";",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\"",
+			"enableMultiLineRow": true
+		},
+		"schema": [
+			{
+				"name": "Name;Address",
+				"type": "String"
+			}
+		]
+	}
+}
