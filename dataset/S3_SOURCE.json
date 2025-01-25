@@ -5,6 +5,11 @@
 			"referenceName": "AzureBlobStorage",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"filename": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "Scenario3/SOURCE"
 		},
@@ -13,7 +18,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "users_information.csv",
+				"fileName": {
+					"value": "@dataset().filename",
+					"type": "Expression"
+				},
 				"folderPath": "user_details",
 				"container": "adftutorial"
 			},
@@ -22,11 +30,6 @@
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": [
-			{
-				"name": "\"Name\"|\"Age\"|\"Sex\"|\"Qualification\"",
-				"type": "String"
-			}
-		]
+		"schema": []
 	}
 }
