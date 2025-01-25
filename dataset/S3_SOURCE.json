@@ -1,0 +1,32 @@
+{
+	"name": "S3_SOURCE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Scenario3/SOURCE"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "users_information.csv",
+				"folderPath": "user_details",
+				"container": "adftutorial"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "\"Name\"|\"Age\"|\"Sex\"|\"Qualification\"",
+				"type": "String"
+			}
+		]
+	}
+}
