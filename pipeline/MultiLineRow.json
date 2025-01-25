@@ -23,8 +23,7 @@
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
-							"type": "DelimitedTextReadSettings",
-							"enableMultiLineRow": true
+							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
