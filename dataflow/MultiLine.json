@@ -1,6 +1,9 @@
 {
 	"name": "MultiLine",
 	"properties": {
+		"folder": {
+			"name": "MultiLine_DF"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
