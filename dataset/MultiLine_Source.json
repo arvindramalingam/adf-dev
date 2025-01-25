@@ -22,11 +22,6 @@
 			"quoteChar": "\"",
 			"enableMultiLineRow": true
 		},
-		"schema": [
-			{
-				"name": "Name;Address",
-				"type": "String"
-			}
-		]
+		"schema": []
 	}
 }
