@@ -7,25 +7,17 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "ade-adf-training"
 		},
-		"AzureDataLakeStorage_accountKey": {
+		"AdventureWorksLT2019_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage'"
+			"metadata": "Secure string for 'password' of 'AdventureWorksLT2019'"
 		},
 		"AzureBlobStorage_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage'"
 		},
-		"AdventureWorksLT2019_password": {
+		"AzureDataLakeStorage_accountKey": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'AdventureWorksLT2019'"
-		},
-		"SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
-			"type": "string",
-			"defaultValue": "/subscriptions/9f7bc326-c778-429c-b2b9-6f7f1ffd15b9/resourcegroups/traningazureforbharathi/providers/Microsoft.DataFactory/factories/fdt-adf-dev/integrationruntimes/selfhostedruntime"
-		},
-		"AzureDataLakeStorage_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://adedatalaketraining.dfs.core.windows.net/"
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage'"
 		},
 		"AdventureWorksLT2019_properties_typeProperties_server": {
 			"type": "string",
@@ -38,6 +30,14 @@
 		"AdventureWorksLT2019_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "sa"
+		},
+		"AzureDataLakeStorage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adedatalaketraining.dfs.core.windows.net/"
+		},
+		"SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/9f7bc326-c778-429c-b2b9-6f7f1ffd15b9/resourcegroups/traningazureforbharathi/providers/Microsoft.DataFactory/factories/fdt-adf-dev/integrationruntimes/selfhostedruntime"
 		},
 		"containerUri": {
 			"type": "string",
@@ -66,20 +66,20 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"AzureDataLakeStorage_accountKey": {
-						"value": "[parameters('AzureDataLakeStorage_accountKey')]"
-					},
 					"AzureBlobStorage_connectionString": {
 						"value": "[parameters('AzureBlobStorage_connectionString')]"
+					},
+					"AzureDataLakeStorage_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage_accountKey')]"
 					},
 					"AdventureWorksLT2019_password": {
 						"value": "[parameters('AdventureWorksLT2019_password')]"
 					},
-					"SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
-						"value": "[parameters('SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId')]"
-					},
 					"AzureDataLakeStorage_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage_properties_typeProperties_url')]"
+					},
+					"SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
+						"value": "[parameters('SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId')]"
 					},
 					"AdventureWorksLT2019_properties_typeProperties_server": {
 						"value": "[parameters('AdventureWorksLT2019_properties_typeProperties_server')]"
