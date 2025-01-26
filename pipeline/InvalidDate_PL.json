@@ -45,9 +45,10 @@
 						},
 						"logLocationSettings": {
 							"linkedServiceName": {
-								"referenceName": "AzureBlobStorage",
+								"referenceName": "AzureDataLakeStorage",
 								"type": "LinkedServiceReference"
-							}
+							},
+							"path": "ade-training-test/t001"
 						}
 					},
 					"translator": {
