@@ -1,0 +1,15 @@
+{
+	"name": "SQLServerConnection",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DESKTOP_KTO8M41",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Scenario5"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	}
+}
