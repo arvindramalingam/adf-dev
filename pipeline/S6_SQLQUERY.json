@@ -18,7 +18,7 @@
 					"source": {
 						"type": "SqlServerSource",
 						"sqlReaderQuery": {
-							"value": "select * from AdventureWorksLT2019.SalesLT.Product where color = 'Red'",
+							"value": "@concat('select \n*\nfrom ',\npipeline().parameters.databasename,\n'.',\npipeline().parameters.schema,\n'.',\npipeline().parameters.table_name,\n'where ',\npipeline().parameters.where_condition\n\n)",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -57,6 +57,24 @@
 				]
 			}
 		],
+		"parameters": {
+			"databasename": {
+				"type": "String",
+				"defaultValue": "AdventureWorksLT2019"
+			},
+			"schema": {
+				"type": "String",
+				"defaultValue": "SalesLT"
+			},
+			"table_name": {
+				"type": "String",
+				"defaultValue": "Product"
+			},
+			"where_condition": {
+				"type": "string",
+				"defaultValue": "color = 'Red'"
+			}
+		},
 		"folder": {
 			"name": "Scenario6_PL"
 		},
