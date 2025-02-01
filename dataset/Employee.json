@@ -1,0 +1,19 @@
+{
+	"name": "Employee",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DESKTOP_KTO8M41",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Scenario4/SOURCE"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "EMPLOYEE"
+		}
+	}
+}
