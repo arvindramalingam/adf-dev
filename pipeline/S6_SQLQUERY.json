@@ -18,7 +18,7 @@
 					"source": {
 						"type": "SqlServerSource",
 						"sqlReaderQuery": {
-							"value": "@concat('select \n*\nfrom ',\npipeline().parameters.databasename,\n'.',\npipeline().parameters.schema,\n'.',\npipeline().parameters.table_name,\n'where ',\npipeline().parameters.where_condition\n\n)",
+							"value": "@concat('select \n*\nfrom ',\npipeline().parameters.databasename,\n'.',\npipeline().parameters.schema,\n'.',\npipeline().parameters.table_name,\n' where ',\npipeline().parameters.where_condition\n\n)",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
