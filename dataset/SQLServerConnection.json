@@ -2,7 +2,7 @@
 	"name": "SQLServerConnection",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "DESKTOP_KTO8M41",
+			"referenceName": "AdventureWorksLT2019",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
