@@ -71,8 +71,7 @@
 				"defaultValue": "Product"
 			},
 			"where_condition": {
-				"type": "string",
-				"defaultValue": " where color = 'Red'"
+				"type": "string"
 			}
 		},
 		"folder": {
