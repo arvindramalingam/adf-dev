@@ -18,7 +18,7 @@
 					"source": {
 						"type": "SqlServerSource",
 						"sqlReaderQuery": {
-							"value": "select * from SalesLT.Product where color = \\''",
+							"value": "select * from SalesLT.Product where color = 'Red'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
