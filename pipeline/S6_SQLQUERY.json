@@ -18,7 +18,7 @@
 					"source": {
 						"type": "SqlServerSource",
 						"sqlReaderQuery": {
-							"value": "@concat('SELECT * FROM [SalesLT].[Product] where Color =','red')",
+							"value": "select * from SalesLT.Product where color = \\\\'Red\\\\'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
