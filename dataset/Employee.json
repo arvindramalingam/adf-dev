@@ -5,6 +5,16 @@
 			"referenceName": "DESKTOP_KTO8M41",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"table_name": {
+				"type": "string",
+				"defaultValue": "employee"
+			},
+			"schema": {
+				"type": "string",
+				"defaultValue": "dbo"
+			}
+		},
 		"folder": {
 			"name": "Scenario4/SOURCE"
 		},
@@ -12,8 +22,14 @@
 		"type": "SqlServerTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "dbo",
-			"table": "EMPLOYEE"
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table_name",
+				"type": "Expression"
+			}
 		}
 	}
 }
