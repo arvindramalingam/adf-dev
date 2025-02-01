@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage'"
 		},
+		"DESKTOP_KTO8M41_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'DESKTOP_KTO8M41'"
+		},
 		"AdventureWorksLT2019_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "DESKTOP-KTO8M41"
@@ -38,6 +42,18 @@
 		"SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
 			"type": "string",
 			"defaultValue": "/subscriptions/9f7bc326-c778-429c-b2b9-6f7f1ffd15b9/resourcegroups/traningazureforbharathi/providers/Microsoft.DataFactory/factories/fdt-adf-dev/integrationruntimes/selfhostedruntime"
+		},
+		"DESKTOP_KTO8M41_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "DESKTOP-KTO8M41"
+		},
+		"DESKTOP_KTO8M41_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "Gilbert"
+		},
+		"DESKTOP_KTO8M41_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "adf_sql_sa"
 		},
 		"containerUri": {
 			"type": "string",
@@ -75,6 +91,9 @@
 					"AdventureWorksLT2019_password": {
 						"value": "[parameters('AdventureWorksLT2019_password')]"
 					},
+					"DESKTOP_KTO8M41_password": {
+						"value": "[parameters('DESKTOP_KTO8M41_password')]"
+					},
 					"AzureDataLakeStorage_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage_properties_typeProperties_url')]"
 					},
@@ -89,6 +108,15 @@
 					},
 					"AdventureWorksLT2019_properties_typeProperties_userName": {
 						"value": "[parameters('AdventureWorksLT2019_properties_typeProperties_userName')]"
+					},
+					"DESKTOP_KTO8M41_properties_typeProperties_server": {
+						"value": "[parameters('DESKTOP_KTO8M41_properties_typeProperties_server')]"
+					},
+					"DESKTOP_KTO8M41_properties_typeProperties_database": {
+						"value": "[parameters('DESKTOP_KTO8M41_properties_typeProperties_database')]"
+					},
+					"DESKTOP_KTO8M41_properties_typeProperties_userName": {
+						"value": "[parameters('DESKTOP_KTO8M41_properties_typeProperties_userName')]"
 					}
 				}
 			},

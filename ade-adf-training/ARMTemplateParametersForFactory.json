@@ -14,6 +14,9 @@
 		"AzureDataLakeStorage_accountKey": {
 			"value": ""
 		},
+		"DESKTOP_KTO8M41_password": {
+			"value": ""
+		},
 		"AdventureWorksLT2019_properties_typeProperties_server": {
 			"value": "DESKTOP-KTO8M41"
 		},
@@ -28,6 +31,15 @@
 		},
 		"SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
 			"value": "/subscriptions/9f7bc326-c778-429c-b2b9-6f7f1ffd15b9/resourcegroups/traningazureforbharathi/providers/Microsoft.DataFactory/factories/fdt-adf-dev/integrationruntimes/selfhostedruntime"
+		},
+		"DESKTOP_KTO8M41_properties_typeProperties_server": {
+			"value": "DESKTOP-KTO8M41"
+		},
+		"DESKTOP_KTO8M41_properties_typeProperties_database": {
+			"value": "Gilbert"
+		},
+		"DESKTOP_KTO8M41_properties_typeProperties_userName": {
+			"value": "adf_sql_sa"
 		}
 	}
 }
