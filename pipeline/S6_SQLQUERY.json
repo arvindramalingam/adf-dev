@@ -1,0 +1,9 @@
+{
+	"name": "S6_SQLQUERY",
+	"properties": {
+		"folder": {
+			"name": "Scenario6_PL"
+		},
+		"annotations": []
+	}
+}
