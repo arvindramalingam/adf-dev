@@ -1,13 +1,69 @@
 {
 	"name": "S6_MappingDataflows",
 	"properties": {
+		"folder": {
+			"name": "S6_Dataflow"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
-			"sources": [],
-			"sinks": [],
-			"transformations": [],
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "MultiLine_Source",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "S3_DESTINATION",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "select1"
+				}
+			],
 			"scriptLines": [
-				""
+				"source(output(",
+				"          Name as string,",
+				"          Address as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     multiLineRow: true) ~> source1",
+				"source1 derive(DerivedCol1 = iif(Name==\"Arvind\", 1, 0),",
+				"          DerviedCol2 = iif(Name==\"Arvind\", \"TestArvind\", \"NotArvind\")) ~> derivedColumn1",
+				"derivedColumn1 select(mapColumn(",
+				"          Name,",
+				"          Address,",
+				"          DerivedCol1",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Name as string,",
+				"          Age as string,",
+				"          Sex as string,",
+				"          Qualification as string",
+				"     ),",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
