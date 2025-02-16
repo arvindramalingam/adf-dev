@@ -1,0 +1,10 @@
+{
+	"name": "AzureDataLakeStoragePrivate",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://adedatalakeprivate.dfs.core.windows.net/"
+		}
+	}
+}
