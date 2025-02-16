@@ -1,6 +1,29 @@
 {
 	"name": "MASTER_S6_PL",
 	"properties": {
+		"activities": [
+			{
+				"name": "Execute Pipeline1",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "S6_SQLQUERY",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"databasename": "Gilbert",
+						"schema": "dbo",
+						"table_name": "EMPLOYEE"
+					}
+				}
+			}
+		],
 		"folder": {
 			"name": "Scenario8_ExecutePipeline_PL"
 		},
