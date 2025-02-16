@@ -1,0 +1,9 @@
+{
+	"name": "MASTER_S6_PL",
+	"properties": {
+		"folder": {
+			"name": "Scenario8_ExecutePipeline_PL"
+		},
+		"annotations": []
+	}
+}
