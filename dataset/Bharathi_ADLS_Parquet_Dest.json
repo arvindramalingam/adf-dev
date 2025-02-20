@@ -1,0 +1,32 @@
+{
+	"name": "Bharathi_ADLS_Parquet_Dest",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage_1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Bharathi-csvtoparquet-1/Destination"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "test",
+				"fileSystem": "ade-training-test"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "Name",
+				"type": "UTF8"
+			},
+			{
+				"name": "DOB",
+				"type": "DATE"
+			}
+		]
+	}
+}
