@@ -1,0 +1,32 @@
+{
+	"name": "Bharathi_csvtoparquet_1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage_",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Bharathi-csvtoparquet-1/Source"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "users_information.csv",
+				"folderPath": "user_details",
+				"container": "adftutorial"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "\"Name\"|\"Age\"|\"Sex\"|\"Qualification\"",
+				"type": "String"
+			}
+		]
+	}
+}
