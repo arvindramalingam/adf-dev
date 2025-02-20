@@ -5,10 +5,10 @@
 		"factoryName": {
 			"value": "ade-adf-training"
 		},
-		"AdventureWorksLT2019_password": {
+		"AzureBlobStorage_connectionString": {
 			"value": ""
 		},
-		"AzureBlobStorage_connectionString": {
+		"AzureBlobStorage__connectionString": {
 			"value": ""
 		},
 		"AzureDataLakeStorage_accountKey": {
@@ -21,7 +21,7 @@
 			"value": "DESKTOP-KTO8M41"
 		},
 		"AdventureWorksLT2019_properties_typeProperties_database": {
-			"value": "AdventureWorksLT2019"
+			"value": "Gilbert"
 		},
 		"AdventureWorksLT2019_properties_typeProperties_userName": {
 			"value": "sa"
@@ -29,8 +29,11 @@
 		"AzureDataLakeStorage_properties_typeProperties_url": {
 			"value": "https://adedatalaketraining.dfs.core.windows.net/"
 		},
-		"SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
-			"value": "/subscriptions/9f7bc326-c778-429c-b2b9-6f7f1ffd15b9/resourcegroups/traningazureforbharathi/providers/Microsoft.DataFactory/factories/fdt-adf-dev/integrationruntimes/selfhostedruntime"
+		"AzureDataLakeStoragePrivate_properties_typeProperties_url": {
+			"value": "https://adedatalakeprivate.dfs.core.windows.net/"
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": "https://adekeyvaulttraining.vault.azure.net/"
 		},
 		"DESKTOP_KTO8M41_properties_typeProperties_server": {
 			"value": "DESKTOP-KTO8M41"
@@ -40,6 +43,9 @@
 		},
 		"DESKTOP_KTO8M41_properties_typeProperties_userName": {
 			"value": "adf_sql_sa"
+		},
+		"SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
+			"value": "/subscriptions/9f7bc326-c778-429c-b2b9-6f7f1ffd15b9/resourcegroups/traningazureforbharathi/providers/Microsoft.DataFactory/factories/fdt-adf-dev/integrationruntimes/selfhostedruntime"
 		}
 	}
 }
