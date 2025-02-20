@@ -19,6 +19,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage'"
 		},
+		"AzureDataLakeStorage__accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage_'"
+		},
+		"AzureDataLakeStorage_1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage_1'"
+		},
 		"DESKTOP_KTO8M41_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'DESKTOP_KTO8M41'"
@@ -42,6 +50,14 @@
 		"AzureDataLakeStoragePrivate_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adedatalakeprivate.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage__properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adedatalaketraining.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage_1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adedatalaketraining.dfs.core.windows.net/"
 		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -880,6 +896,43 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Bharathi_ADLS_Parquet_Dest')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage_1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Bharathi-csvtoparquet-1/Destination"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "test",
+						"fileSystem": "ade-training-test"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Name",
+						"type": "UTF8"
+					},
+					{
+						"name": "DOB",
+						"type": "DATE"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage_1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Bharathi_csvtoparquet_1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1452,6 +1505,40 @@
 				"type": "AzureBlobFS",
 				"typeProperties": {
 					"url": "[parameters('AzureDataLakeStoragePrivate_properties_typeProperties_url')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage_')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage__properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage__accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage_1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage_1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage_1_accountKey')]"
+					}
 				}
 			},
 			"dependsOn": []

@@ -14,6 +14,12 @@
 		"AzureDataLakeStorage_accountKey": {
 			"value": ""
 		},
+		"AzureDataLakeStorage__accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage_1_accountKey": {
+			"value": ""
+		},
 		"DESKTOP_KTO8M41_password": {
 			"value": ""
 		},
@@ -31,6 +37,12 @@
 		},
 		"AzureDataLakeStoragePrivate_properties_typeProperties_url": {
 			"value": "https://adedatalakeprivate.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage__properties_typeProperties_url": {
+			"value": "https://adedatalaketraining.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage_1_properties_typeProperties_url": {
+			"value": "https://adedatalaketraining.dfs.core.windows.net/"
 		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"value": "https://adekeyvaulttraining.vault.azure.net/"

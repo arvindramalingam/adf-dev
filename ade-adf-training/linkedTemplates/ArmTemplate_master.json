@@ -19,6 +19,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage'"
 		},
+		"AzureDataLakeStorage__accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage_'"
+		},
+		"AzureDataLakeStorage_1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage_1'"
+		},
 		"DESKTOP_KTO8M41_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'DESKTOP_KTO8M41'"
@@ -42,6 +50,14 @@
 		"AzureDataLakeStoragePrivate_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adedatalakeprivate.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage__properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adedatalaketraining.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage_1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adedatalaketraining.dfs.core.windows.net/"
 		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -99,8 +115,11 @@
 					"AzureDataLakeStorage_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage_accountKey')]"
 					},
-					"DESKTOP_KTO8M41_password": {
-						"value": "[parameters('DESKTOP_KTO8M41_password')]"
+					"AzureDataLakeStorage__accountKey": {
+						"value": "[parameters('AzureDataLakeStorage__accountKey')]"
+					},
+					"AzureDataLakeStorage_1_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage_1_accountKey')]"
 					},
 					"AzureDataLakeStorage_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage_properties_typeProperties_url')]"
@@ -108,29 +127,17 @@
 					"AzureDataLakeStoragePrivate_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStoragePrivate_properties_typeProperties_url')]"
 					},
+					"AzureDataLakeStorage__properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage__properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStorage_1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage_1_properties_typeProperties_url')]"
+					},
 					"AzureKeyVault1_properties_typeProperties_baseUrl": {
 						"value": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
 					},
 					"SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
 						"value": "[parameters('SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId')]"
-					},
-					"AdventureWorksLT2019_properties_typeProperties_server": {
-						"value": "[parameters('AdventureWorksLT2019_properties_typeProperties_server')]"
-					},
-					"AdventureWorksLT2019_properties_typeProperties_database": {
-						"value": "[parameters('AdventureWorksLT2019_properties_typeProperties_database')]"
-					},
-					"AdventureWorksLT2019_properties_typeProperties_userName": {
-						"value": "[parameters('AdventureWorksLT2019_properties_typeProperties_userName')]"
-					},
-					"DESKTOP_KTO8M41_properties_typeProperties_server": {
-						"value": "[parameters('DESKTOP_KTO8M41_properties_typeProperties_server')]"
-					},
-					"DESKTOP_KTO8M41_properties_typeProperties_database": {
-						"value": "[parameters('DESKTOP_KTO8M41_properties_typeProperties_database')]"
-					},
-					"DESKTOP_KTO8M41_properties_typeProperties_userName": {
-						"value": "[parameters('DESKTOP_KTO8M41_properties_typeProperties_userName')]"
 					}
 				}
 			},
@@ -149,6 +156,27 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"DESKTOP_KTO8M41_password": {
+						"value": "[parameters('DESKTOP_KTO8M41_password')]"
+					},
+					"AdventureWorksLT2019_properties_typeProperties_server": {
+						"value": "[parameters('AdventureWorksLT2019_properties_typeProperties_server')]"
+					},
+					"AdventureWorksLT2019_properties_typeProperties_database": {
+						"value": "[parameters('AdventureWorksLT2019_properties_typeProperties_database')]"
+					},
+					"AdventureWorksLT2019_properties_typeProperties_userName": {
+						"value": "[parameters('AdventureWorksLT2019_properties_typeProperties_userName')]"
+					},
+					"DESKTOP_KTO8M41_properties_typeProperties_server": {
+						"value": "[parameters('DESKTOP_KTO8M41_properties_typeProperties_server')]"
+					},
+					"DESKTOP_KTO8M41_properties_typeProperties_database": {
+						"value": "[parameters('DESKTOP_KTO8M41_properties_typeProperties_database')]"
+					},
+					"DESKTOP_KTO8M41_properties_typeProperties_userName": {
+						"value": "[parameters('DESKTOP_KTO8M41_properties_typeProperties_userName')]"
 					}
 				}
 			},
