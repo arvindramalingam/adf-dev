@@ -17,7 +17,13 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "S6_MappingDataflows",
-						"type": "DataFlowReference"
+						"type": "DataFlowReference",
+						"parameters": {
+							"sapKeyColumns": {
+								"value": "@pipeline().parameters.KeyColumns",
+								"type": "Expression"
+							}
+						}
 					},
 					"compute": {
 						"coreCount": 8,
@@ -27,6 +33,20 @@
 				}
 			}
 		],
+		"parameters": {
+			"KeyColumns": {
+				"type": "array",
+				"defaultValue": [
+					"Name",
+					"Address"
+				]
+			}
+		},
+		"variables": {
+			"test": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Scenario7_PL"
 		},
