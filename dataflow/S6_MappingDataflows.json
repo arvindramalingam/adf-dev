@@ -62,7 +62,7 @@
 				"     skipDuplicateMapOutputs: true,",
 				"     partitionBy('key',",
 				"          0,",
-				"          toString(extractdate)",
+				"          extractdate",
 				"     )) ~> sink1"
 			]
 		}
