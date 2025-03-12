@@ -31,7 +31,8 @@
 			],
 			"scriptLines": [
 				"parameters{",
-				"     sapKeyColumns as string[]",
+				"     sapKeyColumns as string[],",
+				"     extracttime as string (toString(currentTimestamp(), 'yyyy-MM-dd HH-mm-ss'))",
 				"}",
 				"source(output(",
 				"          Name as string,",
