@@ -43,7 +43,7 @@
 				"     multiLineRow: true) ~> source1",
 				"source1 derive(DerivedCol1 = iif(Name==\"Arvind\", 1, 0),",
 				"          DerviedCol2 = iif(Name==\"Arvind\", \"TestArvind\", \"NotArvind\"),",
-				"          hashbytes = sha2(256, reduce(array(byNames($sapKeyColumns)), '', #acc + iif(length(#acc) > 0, '|_|', '') + toString(#item), #result)),",
+				"          hashbytes = sha2(256, reduce(array(byNames($sapKeyColumns)), '', #acc + iif(length(#acc) > 0, '|_|', '') + iif(isNull(#item), '', toString(#item)), #result)),",
 				"          testhashinput = reduce(array(byNames($sapKeyColumns)), '', #acc + iif(length(#acc) > 0, '|_|', '') + iif(isNull(#item), '', toString(#item)), #result),",
 				"          extractdate = toString(currentTimestamp(), 'yyyy-MM-dd HH:mm:ss')) ~> derivedColumn1",
 				"derivedColumn1 sink(allowSchemaDrift: true,",
