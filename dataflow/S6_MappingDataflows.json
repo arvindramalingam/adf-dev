@@ -42,7 +42,7 @@
 				"     ignoreNoFilesFound: false,",
 				"     multiLineRow: true) ~> source1",
 				"source1 derive(hashbytes = sha2(256, reduce(array(byNames($sapKeyColumns)), '', #acc + iif(length(#acc) > 0, '|_|', '') + iif(isNull(#item), '', toString(#item)), #result)),",
-				"          testhashinput = reduce(array(byNames($sapKeyColumns)), '', #acc + iif(length(#acc) > 0, '|_|', '') + iif(isNull(#item), '', toString(#item)) + iif(and(length(#acc) > 0, isNull(#item)), '|_|', ''), #result),",
+				"          testhashinput = reduce(array(byNames($sapKeyColumns)), '', #acc + iif(length(#acc) > 0, '|_|', '') + iif(isNull(#item), '', toString(#item)) + iif(and(not(length(#acc) > 0), isNull(#item)), '|_|', ''), #result),",
 				"          extractdate = toString(currentTimestamp(), 'yyyy-MM-dd HH-mm-ss')) ~> derivedColumn1",
 				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
