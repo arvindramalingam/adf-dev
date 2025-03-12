@@ -30,6 +30,9 @@
 				}
 			],
 			"scriptLines": [
+				"parameters{",
+				"     KeyColumns as string[]",
+				"}",
 				"source(output(",
 				"          Name as string,",
 				"          Address as string",
@@ -39,7 +42,8 @@
 				"     ignoreNoFilesFound: false,",
 				"     multiLineRow: true) ~> source1",
 				"source1 derive(DerivedCol1 = iif(Name==\"Arvind\", 1, 0),",
-				"          DerviedCol2 = iif(Name==\"Arvind\", \"TestArvind\", \"NotArvind\")) ~> derivedColumn1",
+				"          DerviedCol2 = iif(Name==\"Arvind\", \"TestArvind\", \"NotArvind\"),",
+				"          hashbytes = sha2(256,$KeyColumns)) ~> derivedColumn1",
 				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
