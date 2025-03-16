@@ -802,7 +802,12 @@
 							"dataflow": {
 								"referenceName": "S6_MappingDataflows",
 								"type": "DataFlowReference",
-								"parameters": {},
+								"parameters": {
+									"sapKeyColumns": {
+										"value": "@pipeline().parameters.KeyColumns",
+										"type": "Expression"
+									}
+								},
 								"datasetParameters": {
 									"source1": {},
 									"sink1": {}
@@ -819,6 +824,21 @@
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"KeyColumns": {
+						"type": "array",
+						"defaultValue": [
+							"Name",
+							"Address",
+							"Pincode"
+						]
+					}
+				},
+				"variables": {
+					"test": {
+						"type": "String"
+					}
 				},
 				"folder": {
 					"name": "Scenario7_PL"
@@ -1919,12 +1939,12 @@
 					"transformations": [
 						{
 							"name": "derivedColumn1"
-						},
-						{
-							"name": "select1"
 						}
 					],
 					"scriptLines": [
+						"parameters{",
+						"     sapKeyColumns as string[]",
+						"}",
 						"source(output(",
 						"          Name as string,",
 						"          Address as string",
@@ -1933,16 +1953,10 @@
 						"     validateSchema: false,",
 						"     ignoreNoFilesFound: false,",
 						"     multiLineRow: true) ~> source1",
-						"source1 derive(DerivedCol1 = iif(Name==\"Arvind\", 1, 0),",
-						"          DerviedCol2 = iif(Name==\"Arvind\", \"TestArvind\", \"NotArvind\")) ~> derivedColumn1",
-						"derivedColumn1 select(mapColumn(",
-						"          Name,",
-						"          Address,",
-						"          DerivedCol1",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> select1",
-						"select1 sink(allowSchemaDrift: true,",
+						"source1 derive(hashbytes = sha2(256, reduce(array(byNames($sapKeyColumns)), '', #acc + iif(or( and(length(#acc) > 0, not(and(length(#acc)==3, right(#acc, 3) == '|_|')) ),and(not(length(#acc) > 0), isNull(#item)) ), '|_|', '') + iif(isNull(#item), '', toString(#item)), #result)),",
+						"          testhashinput = reduce(array(byNames($sapKeyColumns)), '', #acc + iif(or( and(length(#acc) > 0, not(and(length(#acc)==3, right(#acc, 3) == '|_|')) ),and(not(length(#acc) > 0), isNull(#item)) ), '|_|', '') + iif(isNull(#item), '', toString(#item)), #result),",
+						"          extractdate = toString(currentTimestamp(), 'yyyy-MM-dd HH:mm:ss')) ~> derivedColumn1",
+						"derivedColumn1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     input(",
 						"          Name as string,",
@@ -1955,7 +1969,11 @@
 						"     preCommands: [],",
 						"     postCommands: [],",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> sink1"
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('key',",
+						"          0,",
+						"          extractdate",
+						"     )) ~> sink1"
 					]
 				}
 			},
