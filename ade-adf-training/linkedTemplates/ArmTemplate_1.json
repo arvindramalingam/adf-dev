@@ -1117,7 +1117,8 @@
 						"defaultValue": [
 							"Name",
 							"Address",
-							"Pincode"
+							"Pincode",
+							"value"
 						]
 					}
 				},
