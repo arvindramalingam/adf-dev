@@ -363,7 +363,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Data flow1",
+						"name": "Hash Test",
 						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
@@ -407,7 +407,8 @@
 						"type": "string",
 						"defaultValue": [
 							"StudentName",
-							"City"
+							"City",
+							"Pincode"
 						]
 					}
 				},
