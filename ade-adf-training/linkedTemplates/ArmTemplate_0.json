@@ -27,6 +27,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage_1'"
 		},
+		"AzureSqlDatabase1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSqlDatabase1'"
+		},
 		"AzureDataLakeStorage_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adedatalaketraining.dfs.core.windows.net/"
@@ -50,6 +54,18 @@
 		"SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
 			"type": "string",
 			"defaultValue": "/subscriptions/9f7bc326-c778-429c-b2b9-6f7f1ffd15b9/resourcegroups/traningazureforbharathi/providers/Microsoft.DataFactory/factories/fdt-adf-dev/integrationruntimes/selfhostedruntime"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "ade-sqlserver.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "ade_sql_server"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqluser"
 		}
 	},
 	"variables": {
@@ -169,6 +185,28 @@
 					"linkedInfo": {
 						"resourceId": "[parameters('SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId')]",
 						"authorizationType": "Rbac"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('AzureSqlDatabase1_properties_typeProperties_server')]",
+					"database": "[parameters('AzureSqlDatabase1_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": true,
+					"authenticationType": "SQL",
+					"userName": "[parameters('AzureSqlDatabase1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('AzureSqlDatabase1_password')]"
 					}
 				}
 			},
@@ -602,43 +640,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SQLFilterDest')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Scenario6/DESTINATION"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "test",
-						"fileSystem": "ade-training-test"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "Name",
-						"type": "UTF8"
-					},
-					{
-						"name": "DOB",
-						"type": "DATE"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage')]"
 			]
 		}
 	]

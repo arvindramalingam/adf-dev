@@ -31,6 +31,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'DESKTOP_KTO8M41'"
 		},
+		"AzureSqlDatabase1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSqlDatabase1'"
+		},
 		"AdventureWorksLT2019_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "DESKTOP-KTO8M41"
@@ -79,6 +83,18 @@
 			"type": "string",
 			"defaultValue": "/subscriptions/9f7bc326-c778-429c-b2b9-6f7f1ffd15b9/resourcegroups/traningazureforbharathi/providers/Microsoft.DataFactory/factories/fdt-adf-dev/integrationruntimes/selfhostedruntime"
 		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "ade-sqlserver.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "ade_sql_server"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqluser"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -121,6 +137,9 @@
 					"AzureDataLakeStorage_1_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage_1_accountKey')]"
 					},
+					"AzureSqlDatabase1_password": {
+						"value": "[parameters('AzureSqlDatabase1_password')]"
+					},
 					"AzureDataLakeStorage_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage_properties_typeProperties_url')]"
 					},
@@ -138,6 +157,15 @@
 					},
 					"SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
 						"value": "[parameters('SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId')]"
+					},
+					"AzureSqlDatabase1_properties_typeProperties_server": {
+						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_server')]"
+					},
+					"AzureSqlDatabase1_properties_typeProperties_database": {
+						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_database')]"
+					},
+					"AzureSqlDatabase1_properties_typeProperties_userName": {
+						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_userName')]"
 					}
 				}
 			},

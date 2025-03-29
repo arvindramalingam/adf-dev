@@ -23,6 +23,9 @@
 		"DESKTOP_KTO8M41_password": {
 			"value": ""
 		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
 		"AdventureWorksLT2019_properties_typeProperties_server": {
 			"value": "DESKTOP-KTO8M41"
 		},
@@ -58,6 +61,15 @@
 		},
 		"SelfHostedIntegrationRuntime_properties_typeProperties_linkedInfo_resourceId": {
 			"value": "/subscriptions/9f7bc326-c778-429c-b2b9-6f7f1ffd15b9/resourcegroups/traningazureforbharathi/providers/Microsoft.DataFactory/factories/fdt-adf-dev/integrationruntimes/selfhostedruntime"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "ade-sqlserver.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "ade_sql_server"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "sqluser"
 		},
 		"containerUri": {
 			"value": ""
