@@ -39,7 +39,8 @@
 				"defaultValue": [
 					"StudentName",
 					"City",
-					"Pincode"
+					"Pincode",
+					"Dob"
 				]
 			}
 		},
