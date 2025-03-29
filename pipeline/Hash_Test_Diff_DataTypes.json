@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Hash Test",
+				"name": "Hash Bytes",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
