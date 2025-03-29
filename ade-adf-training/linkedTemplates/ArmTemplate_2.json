@@ -411,7 +411,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Hash Test",
+						"name": "Hash Bytes",
 						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
@@ -456,7 +456,8 @@
 						"defaultValue": [
 							"StudentName",
 							"City",
-							"Pincode"
+							"Pincode",
+							"Dob"
 						]
 					}
 				},
