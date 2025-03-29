@@ -24,6 +24,9 @@
 			"transformations": [
 				{
 					"name": "derivedColumn1"
+				},
+				{
+					"name": "cast1"
 				}
 			],
 			"scriptLines": [
@@ -43,8 +46,12 @@
 				"     schemaName: 'dbo',",
 				"     tableName: 'Student',",
 				"     isolationLevel: 'READ_UNCOMMITTED') ~> source1",
-				"source1 derive(hashkey = sha2(256, reduce(array(byNames($sapKeyColumns)), '', #acc + iif(or( and(length(#acc) > 0, not(and(length(#acc)==3, right(#acc, 3) == '|_|')) ),and(not(length(#acc) > 0), isNull(#item)) ), '|_|', '') + iif(isNull(#item), '', toString(#item)), #result)),",
+				"cast1 derive(hashkey = sha2(256, reduce(array(byNames($sapKeyColumns)), '', #acc + iif(or( and(length(#acc) > 0, not(and(length(#acc)==3, right(#acc, 3) == '|_|')) ),and(not(length(#acc) > 0), isNull(#item)) ), '|_|', '') + iif(isNull(#item), '', toString(#item)), #result)),",
 				"          hashinput = reduce(array(byNames($sapKeyColumns)), '', #acc + iif(or( and(length(#acc) > 0, not(and(length(#acc)==3, right(#acc, 3) == '|_|')) ),and(not(length(#acc) > 0), isNull(#item)) ), '|_|', '') + iif(isNull(#item), '', toString(#item)), #result)) ~> derivedColumn1",
+				"source1 cast(output(",
+				"          Pincode as string",
+				"     ),",
+				"     errors: true) ~> cast1",
 				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
