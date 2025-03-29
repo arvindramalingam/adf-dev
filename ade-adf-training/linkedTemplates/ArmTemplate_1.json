@@ -996,6 +996,74 @@
 					],
 					"transformations": [
 						{
+							"name": "derivedColumn1"
+						}
+					],
+					"scriptLines": [
+						"parameters{",
+						"     sapKeyColumns as string[] ([\"StudentName\",\"City\",\"Pincode\"])",
+						"}",
+						"source(output(",
+						"          StudentName as string,",
+						"          City as string,",
+						"          Pincode as integer,",
+						"          Dob as date",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table',",
+						"     store: 'sqlserver',",
+						"     schemaName: 'dbo',",
+						"     tableName: 'Student',",
+						"     isolationLevel: 'READ_UNCOMMITTED') ~> source1",
+						"source1 derive(hashinput = reduce(array(toString(byNames($sapKeyColumns))), '', #acc + iif(or( and(length(#acc) > 0, not(and(length(#acc)==3, right(#acc, 3) == '|_|')) ),and(not(length(#acc) > 0), isNull(#item)) ), '|_|', '') + iif(isNull(#item), '', toString(#item)), #result),",
+						"          hashkey = sha2(256, reduce(array(toString(byNames($sapKeyColumns))), '', #acc + iif(or( and(length(#acc) > 0, not(and(length(#acc)==3, right(#acc, 3) == '|_|')) ),and(not(length(#acc) > 0), isNull(#item)) ), '|_|', '') + iif(isNull(#item), '', toString(#item)), #result))) ~> derivedColumn1",
+						"derivedColumn1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          Name as string,",
+						"          Age as string,",
+						"          Sex as string,",
+						"          Qualification as string",
+						"     ),",
+						"     format: 'parquet',",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/hash_test_df_test')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"linkedService": {
+								"referenceName": "AzureSqlDatabase1",
+								"type": "LinkedServiceReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "S3_DESTINATION",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
 							"name": "cast1"
 						},
 						{
@@ -1140,56 +1208,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/MultiLine_Fix')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ParquetCrud')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "This Data Flow runs CRUD operations on a parquet sink using the following Parquet Inputs:\n1. Primary Key Table: a list of primary keys of rows that exist. This can be both the master list of primary keys or just a list of primary keys of rows that have been inserted/updated\n2. Input Data: A List of rows that are inserted, updated and deleted\n3. Existing Data: The existing sink data base\n\nThe output of this Data Flow is the equivalent of a MERGE command in SQL",
-				"activities": [
-					{
-						"name": "ParquetCrudDataFlow",
-						"description": "This Data Flow runs CRUD operations on a parquet sink using the following Parquet Inputs:\n1. Primary Key Table: a list of primary keys of rows that exist. This can be both the master list of primary keys or just a list of primary keys of rows that have been inserted/updated\n2. Input Data: A List of rows that are inserted, updated and deleted\n3. Existing Data: The existing sink data base\n\nThe output of this Data Flow is the equivalent of a MERGE command in SQL",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "ParquetCrud",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"PKTable": {},
-									"InputData": {},
-									"ExistingData": {},
-									"ParquetCrudOutput": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/ParquetCrud')]"
 			]
 		}
 	]
