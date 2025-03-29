@@ -38,7 +38,8 @@
 				"type": "string",
 				"defaultValue": [
 					"StudentName",
-					"City"
+					"City",
+					"Pincode"
 				]
 			}
 		},
