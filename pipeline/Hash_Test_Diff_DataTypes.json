@@ -17,7 +17,13 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "hash_test_df",
-						"type": "DataFlowReference"
+						"type": "DataFlowReference",
+						"parameters": {
+							"sapKeyColumns": {
+								"value": "@pipeline().parameters.KeyColumns",
+								"type": "Expression"
+							}
+						}
 					},
 					"compute": {
 						"coreCount": 8,
@@ -27,6 +33,15 @@
 				}
 			}
 		],
+		"parameters": {
+			"KeyColumns": {
+				"type": "string",
+				"defaultValue": [
+					"StudentName",
+					"City"
+				]
+			}
+		},
 		"folder": {
 			"name": "HashDiffTypes_DF_PL_TEST"
 		},
