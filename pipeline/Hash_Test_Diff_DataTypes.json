@@ -36,7 +36,11 @@
 		"parameters": {
 			"KeyColumns": {
 				"type": "string",
-				"defaultValue": "[toString(\"StudentName\"),toString(\"City\"),toString(\"Pincode\")]"
+				"defaultValue": [
+					"StudentName",
+					"City",
+					"Pincode"
+				]
 			}
 		},
 		"folder": {
