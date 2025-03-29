@@ -45,7 +45,7 @@
 				"     isolationLevel: 'READ_UNCOMMITTED') ~> source1",
 				"source1 derive(hashinput = reduce(array(toString(byNames($sapKeyColumns))), '', #acc + iif(or( and(length(#acc) > 0, not(and(length(#acc)==3, right(#acc, 3) == '|_|')) ),and(not(length(#acc) > 0), isNull(#item)) ), '|_|', '') + iif(isNull(#item), '', toString(#item)), #result),",
 				"          hashkey = sha2(256, reduce(array(toString(byNames($sapKeyColumns))), '', #acc + iif(or( and(length(#acc) > 0, not(and(length(#acc)==3, right(#acc, 3) == '|_|')) ),and(not(length(#acc) > 0), isNull(#item)) ), '|_|', '') + iif(isNull(#item), '', toString(#item)), #result)),",
-				"          testinput = reduce(array(iifNull(toString(byNames($sapKeyColumns)),'')), '', #acc + iif(or( and(length(#acc) > 0, not(and(length(#acc)==3, right(#acc, 3) == '|_|')) ),and(not(length(#acc) > 0), isNull(#item)) ), '|_|', '') + iif(isNull(#item), '', toString(#item)), #result)) ~> derivedColumn1",
+				"          testinput = reduce(array(toString(byNames($sapKeyColumns)),''), '', #acc + iif(or( and(length(#acc) > 0, not(and(length(#acc)==3, right(#acc, 3) == '|_|')) ),and(not(length(#acc) > 0), isNull(#item)) ), '|_|', '') + toString(#item), #result)) ~> derivedColumn1",
 				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
