@@ -1,0 +1,405 @@
+{
+	"name": "gdf-nonprod-amer-objects-loop",
+	"properties": {
+		"activities": [
+			{
+				"name": "MetaObjectLookup",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "2.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[dbo].[GetObjectsToExtract]",
+						"storedProcedureParameters": {
+							"LoadGroup": {
+								"type": "Int32",
+								"value": {
+									"value": "@pipeline().parameters.LoadGroup",
+									"type": "Expression"
+								}
+							},
+							"ShortName": {
+								"type": "String",
+								"value": {
+									"value": "@pipeline().parameters.ShortName",
+									"type": "Expression"
+								}
+							}
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "MetaObjectLookup",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('MetaObjectLookup').output.value",
+						"type": "Expression"
+					},
+					"batchCount": 4,
+					"activities": [
+						{
+							"name": "Execute_SaveETLLogs",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"waitOnCompletion": true,
+								"parameters": {
+									"Error": "''",
+									"LoadStatus": "Successful",
+									"LogState": "Running",
+									"LogType": "'ETL'",
+									"NumberOfRows": "0",
+									"ObjectID": {
+										"value": "@item().ObjectID",
+										"type": "Expression"
+									},
+									"PipeLineRunID": {
+										"value": "@pipeline().RunId",
+										"type": "Expression"
+									},
+									"SourceID": {
+										"value": "@item().SourceID",
+										"type": "Expression"
+									},
+									"StartTimeStamp": {
+										"value": "@utcNow()",
+										"type": "Expression"
+									},
+									"TargetFileName": "''",
+									"StoredProcedure": "dbo.InsertETLLog"
+								}
+							}
+						},
+						{
+							"name": "Execute_SaveETLLogs_after",
+							"type": "ExecutePipeline",
+							"dependsOn": [
+								{
+									"activity": "isWithFilter",
+									"dependencyConditions": [
+										"Completed"
+									]
+								}
+							],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"waitOnCompletion": true,
+								"parameters": {
+									"EndTimeStamp": {
+										"value": "@utcNow()",
+										"type": "Expression"
+									},
+									"Error": {
+										"value": "@coalesce(variables('df_source_error'),'No Error Captured' )",
+										"type": "Expression"
+									},
+									"LoadStatus": {
+										"value": "@if(equals(variables('df_status'),'Succeeded'),'Successful','Failed')",
+										"type": "Expression"
+									},
+									"LogState": "'Started'",
+									"LogType": "'ETL'",
+									"NumberOfRows": {
+										"value": "@coalesce(variables('df_source_output'),0)",
+										"type": "Expression"
+									},
+									"ObjectID": {
+										"value": "@item().ObjectID",
+										"type": "Expression"
+									},
+									"PipeLineRunID": {
+										"value": "@pipeline().RunId",
+										"type": "Expression"
+									},
+									"SourceID": {
+										"value": "@item().SourceID",
+										"type": "Expression"
+									},
+									"StartTimeStamp": {
+										"value": "@pipeline().TriggerTime",
+										"type": "Expression"
+									},
+									"TargetFileName": "''",
+									"StoredProcedure": "dbo.UpdateETLLog"
+								}
+							}
+						},
+						{
+							"name": "isWithFilter",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "Execute_SaveETLLogs",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@and(item().IsWithFilter, equals(item().SAPRunMode, 'fullLoad' ))",
+									"type": "Expression"
+								},
+								"ifFalseActivities": [
+									{
+										"name": "df_source",
+										"type": "ExecuteDataFlow",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "2.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"staging": {
+												"folderPath": {
+													"value": "@concat('sap-staging/', pipeline().parameters.ShortName,'/',item().DeltaFolder)",
+													"type": "Expression"
+												}
+											},
+											"compute": {
+												"coreCount": 16,
+												"computeType": "General"
+											},
+											"traceLevel": "Fine"
+										}
+									},
+									{
+										"name": "df_source_output",
+										"type": "SetVariable",
+										"dependsOn": [
+											{
+												"activity": "df_source",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "df_source_output",
+											"value": {
+												"value": "@string(coalesce(activity('df_source').output.runStatus.metrics.DeltaSink.rowsWritten,0))",
+												"type": "Expression"
+											}
+										}
+									},
+									{
+										"name": "df_source_error",
+										"type": "SetVariable",
+										"dependsOn": [
+											{
+												"activity": "df_source",
+												"dependencyConditions": [
+													"Completed"
+												]
+											}
+										],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "df_source_error",
+											"value": {
+												"value": "@coalesce(activity('df_source').error?.message, 'No Error Captured' )",
+												"type": "Expression"
+											}
+										}
+									},
+									{
+										"name": "df_source_status",
+										"type": "SetVariable",
+										"dependsOn": [
+											{
+												"activity": "df_source",
+												"dependencyConditions": [
+													"Completed"
+												]
+											}
+										],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "df_status",
+											"value": {
+												"value": "@coalesce(activity('df_source')?.Status,'Skipped')",
+												"type": "Expression"
+											}
+										}
+									}
+								],
+								"ifTrueActivities": [
+									{
+										"name": "df_source_filter",
+										"type": "ExecuteDataFlow",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "2.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"staging": {
+												"folderPath": {
+													"value": "@concat('sap-staging/', pipeline().parameters.ShortName,'/',item().DeltaFolder)",
+													"type": "Expression"
+												}
+											},
+											"compute": {
+												"coreCount": 8,
+												"computeType": "General"
+											},
+											"traceLevel": "Fine"
+										}
+									},
+									{
+										"name": "df_source_filter_output",
+										"type": "SetVariable",
+										"dependsOn": [
+											{
+												"activity": "df_source_filter",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "df_source_output",
+											"value": {
+												"value": "@string(coalesce(activity('df_source_filter').output.runStatus.metrics.DeltaSink.rowsWritten,0))",
+												"type": "Expression"
+											}
+										}
+									},
+									{
+										"name": "df_source_filter_error",
+										"type": "SetVariable",
+										"dependsOn": [
+											{
+												"activity": "df_source_filter",
+												"dependencyConditions": [
+													"Completed"
+												]
+											}
+										],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "df_source_error",
+											"value": {
+												"value": "@coalesce(activity('df_source_filter').error?.message, 'No Error Captured' )",
+												"type": "Expression"
+											}
+										}
+									},
+									{
+										"name": "df_status_filter",
+										"type": "SetVariable",
+										"dependsOn": [
+											{
+												"activity": "df_source_filter",
+												"dependencyConditions": [
+													"Completed"
+												]
+											}
+										],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "df_status",
+											"value": {
+												"value": "@coalesce(activity('df_source_filter')?.Status,'Skipped')",
+												"type": "Expression"
+											}
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"LoadGroup": {
+				"type": "String",
+				"defaultValue": "4"
+			},
+			"ShortName": {
+				"type": "String",
+				"defaultValue": "CAR"
+			}
+		},
+		"variables": {
+			"df_source_error": {
+				"type": "String"
+			},
+			"df_source_output": {
+				"type": "String",
+				"defaultValue": "0"
+			},
+			"df_status": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-04-18T13:13:59Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
