@@ -1,6 +1,9 @@
 {
-	"name": "gdf-nonprod-amer-sap-replication",
+	"name": "gdf_nonprod_amer_sap_replication",
 	"properties": {
+		"folder": {
+			"name": "SAPonAzure"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
