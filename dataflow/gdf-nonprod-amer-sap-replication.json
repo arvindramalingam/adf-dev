@@ -1,0 +1,65 @@
+{
+	"name": "gdf-nonprod-amer-sap-replication",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "SAPSource",
+					"description": ""
+				}
+			],
+			"sinks": [
+				{
+					"name": "DeltaSink",
+					"description": ""
+				}
+			],
+			"transformations": [
+				{
+					"name": "CreateDerivedColumns",
+					"description": "Create technical columns needed for the raw ingestion"
+				}
+			],
+			"scriptLines": [
+				"parameters{",
+				"     sapContext as string (\"SLT~SLTODP\"),",
+				"     sapObjectName as string (\"0PLANT_ATTR\"),",
+				"     sapKeyColumns as string[] ([\"key1\",\"key2\"]),",
+				"     deltaContainer as string (\"adf\"),",
+				"     deltaFolder as string (\"sink\"),",
+				"     deltaPartition as string (\"partition\"),",
+				"     deltaKeyColumns as string[] ([\"key3\",\"key4\"]),",
+				"     sapPartitions as string (\"[[\\{\\\"fieldName\\\": \\\"ID\\\",\\\"sign\\\": \\\"I\\\", \\\"option\\\": \\\"BT\\\",\\\"low\\\": \\\"1\\\",\\\"high\\\": \\\"4\\\"}]]\"),",
+				"     sapRunMode as string (\"fullAndIncrementalLoad\"),",
+				"     ShortName as string (\"CAR\")",
+				"}",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     context: ($sapContext),",
+				"     objectName: ($sapObjectName),",
+				"     readMode: ($sapRunMode),",
+				"     keys: ($sapKeyColumns),",
+				"     enableMultiLineRow: true) ~> SAPSource",
+				"SAPSource derive(ADF_CREATED_DATETIME = currentTimestamp(),",
+				"          ADF_HASH_KEY = sha2(256,reduce(map(array(toString(byNames($sapKeyColumns))), coalesce(toString(#item),'')), '', #acc + '|_|' + toString(#item), dropLeft(#result,3))),",
+				"          ADF_OPERATION_TYPE = case(isDelete(),'D',isUpdate(),'U',isInsert(),'I',isUpsert(),'S','X'),",
+				"          ADF_CURRENT_TIME = toString(currentTimestamp(), 'yyyy-MM-dd HH-mm-ss')) ~> CreateDerivedColumns",
+				"CreateDerivedColumns sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('key',",
+				"          0,",
+				"          ADF_CURRENT_TIME",
+				"     ),",
+				"     format: 'delta',",
+				"     fileSystem: ($deltaContainer),",
+				"     folderPath: (concat($ShortName, '/',$deltaFolder)),",
+				"     vacuum: 0,",
+				"     preCommands: [],",
+				"     postCommands: []) ~> DeltaSink"
+			]
+		}
+	}
+}
