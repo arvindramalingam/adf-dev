@@ -1,0 +1,42 @@
+{
+	"name": "gdf_nonprod_amer_sap_replication_filter",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "SAPSource",
+					"description": ""
+				}
+			],
+			"sinks": [
+				{
+					"name": "DeltaSink",
+					"description": ""
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"parameters{",
+				"     sapContext as string (\"SLT~SLTODP\"),",
+				"     sapObjectName as string (\"0PLANT_ATTR\"),",
+				"     sapKeyColumns as string[] ([\"key1\",\"key2\"]),",
+				"     deltaContainer as string (\"adf\"),",
+				"     deltaFolder as string (\"sink\"),",
+				"     deltaPartition as string (\"partition\"),",
+				"     deltaKeyColumns as string[] ([\"key3\",\"key4\"]),",
+				"     sapPartitions as string (\"[[\\{\\\"fieldName\\\": \\\"ID\\\",\\\"sign\\\": \\\"I\\\", \\\"option\\\": \\\"BT\\\",\\\"low\\\": \\\"1\\\",\\\"high\\\": \\\"4\\\"}]]\"),",
+				"     sapRunMode as string (\"fullAndIncrementalLoad\"),",
+				"     ShortName as string (\"CAR\")",
+				"}",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionBy('external', 0)) ~> SAPSource",
+				" sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> DeltaSink"
+			]
+		}
+	}
+}
